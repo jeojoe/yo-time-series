@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "yoTimeSeries",
+    "style": "sass",
+    "postcss": false
+  }
+}
