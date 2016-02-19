@@ -1,1 +1,19 @@
 /* Base Application Styles */
+.search-box {
+  width: 335px;
+  /*height: 30px;*/
+  display: block;
+  margin: 0 auto;
+  border-radius: 0px;
+  padding: 15px;
+
+  border: 0;
+  border-bottom: 1.5px solid slategray;
+  outline: none;
+}
+
+div.ct-chart.ct-octave {
+  height: 500px;
+  width: 800px;
+  margin: 50px auto 5px
+}
