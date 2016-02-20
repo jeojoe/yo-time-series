@@ -3,18 +3,18 @@
 /*eslint no-console: 0*/
 'use strict';
 
-import { stringToUTF16Series } from '../../src/zup_timeseries/string_series'
+import { stringToKeyboardPosition } from '../../src/zup_timeseries/string_series'
 
 describe('stringSeries', () => {
-  describe('#stringToUTF16Series', () => {
+  describe('#stringToKeyboardPosition', () => {
 
-    const stringFixture = ['chang', 'mac', 'node'];
+    const stringFixture = ['ช้าง', '=hk\'', 'พ่อขุนราม', 'rjv-6oik,'];
+    const transformedString = stringFixture.map(stringToKeyboardPosition);
 
-    it('should transform string to an array of unicode', () => {
-      const transformedString = stringFixture.map(stringToUTF16Series);
-      expect(transformedString[0]).to.deep.equal([99, 104, 97, 110, 103]);
-      expect(transformedString[1]).to.deep.equal([109, 97, 99]);
-      expect(transformedString[2]).to.deep.equal([110, 111, 100, 101]);
+    it('should have the same pattern with a shift for the characters from the same keyboard position', () => {
+      const offsetLength = 92;
+      expect(transformedString[0]).to.deep.equal(transformedString[1].map(v => v + offsetLength));
+      expect(transformedString[2]).to.deep.equal(transformedString[3].map(v => v + offsetLength));
     });
   });
 });

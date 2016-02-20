@@ -17,3 +17,12 @@ div.ct-chart.ct-octave {
   width: 800px;
   margin: 50px auto 5px
 }
+
+.ct-series-b .ct-line {
+  /* Set the colour of this series line */
+  stroke: #f39c12 !important;
+  /* Control the thickness of your lines */
+  stroke-width: 5px;
+  /* Create a dashed line with a pattern */
+  stroke-dasharray: 10px 20px;
+}
