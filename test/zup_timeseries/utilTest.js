@@ -8,11 +8,9 @@ import { DTW } from '../../src/zup_timeseries/util'
 describe('util', () => {
   describe('#DTW', () => {
 
-    const stringFixture = ['supanat', 'supanat', 's'];
-    const transformedString = stringFixture;
-
-    it('should return 0 for same string', () => {
-      expect(DTW(transformedString[0], transformedString[1])).to,equal(0);
+    it('should return 0 for same sequence', () => {
+      expect(DTW([1, 2, 3], [1, 2, 3])).to.equal(0);
     });
+
   });
 });

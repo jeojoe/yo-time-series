@@ -12,6 +12,12 @@
   outline: none;
 }
 
+.center {
+  display: block;
+  margin: 0 auto;
+  width: 30px;
+}
+
 div.ct-chart.ct-octave {
   height: 500px;
   width: 800px;
