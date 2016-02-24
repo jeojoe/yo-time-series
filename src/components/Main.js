@@ -66,7 +66,7 @@ class DistanceMeter extends React.Component {
         <div className="center">horizontal</div>
 
         <ChartistGraph className={'ct-octave'} data={dataY} options={options} type={type} />
-        <div className="center">vertical
+        <div className="center">vertical</div>
 
         <ChartistGraph className={'ct-octave'} data={dataZ} options={options} type={type} />
         <div className="center">layout</div>
