@@ -25,4 +25,19 @@ export const DTW = (seriesA, seriesB) => {
   return DTWMatrix[seriesA.length - 1][seriesB.length - 1];
 };
 
+export const threeDimensionDTW = (seriesA, seriesB) => {
+  if (seriesA.length === 0 || seriesB.length === 0) {
+    return 0;
+  }
 
+  const extractSeriesDimension =
+    (series, dimension) => series.map(e => e[dimension]);
+
+  const dimensions = ['x', 'y', 'z'];
+
+  return dimensions.reduce((acc, dimension) => {
+    const oneDimensionSeriesA = extractSeriesDimension(seriesA, dimension);
+    const oneDimensionSeriesB = extractSeriesDimension(seriesB, dimension);
+    return acc + DTW(oneDimensionSeriesA, oneDimensionSeriesB);
+  }, 0);
+};

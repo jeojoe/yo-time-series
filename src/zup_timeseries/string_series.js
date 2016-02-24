@@ -1,35 +1,50 @@
-const english = '!@#$%^&*()_+' + 'QWERTYUIOP{}|' + 'ASDFGHJKL:"' + 'ZXCVBNM<>?' +
-                '1234567890-=' + 'qwertyuiop[]\\' + 'asdfghjkl;\'' + 'zxcvbnm,./';
-const thai    = '+๑๒๓๔ู฿๕๖๗๘๙'  + '๐"ฎฑธํ๊ณฯญฐ,ฅ' + 'ฤฆฏโฌ็๋ษศซ.' + '()ฉฮฺ์?ฒฬฦ' +
-                'ๅ/_ภถุึคตจขช' + 'ๆไำพะัีรนยบลฃ' + 'ฟหกดเ้่าสว' + 'งผปแอิืทมใฝ';
+const english = [
+  '!@#$%^&*()_+',
+  'QWERTYUIOP{}|',
+  'ASDFGHJKL:"',
+  'ZXCVBNM<>?',
+  '1234567890-=',
+  'qwertyuiop[]\\',
+  'asdfghjkl;\'',
+  'zxcvbnm,./'
+];
+
+const thai    = [
+  '+๑๒๓๔ู฿๕๖๗๘๙' ,
+  '๐"ฎฑธํ๊ณฯญฐ,ฅ',
+  'ฤฆฏโฌ็๋ษศซ.' ,
+  '()ฉฮฺ์?ฒฬฦ' ,
+  'ๅ/_ภถุึคตจขช' ,
+  'ๆไำพะัีรนยบลฃ' ,
+  'ฟหกดเ้่าสว' ,
+  'งผปแอิืทมใฝ'
+];
+
+export const findCharPosition = (char, layoutMatrix) => {
+  let [x, y] = [-1, -1];
+
+  layoutMatrix.forEach((row, rowIndex) => {
+    const columnIndex = row.indexOf(char);
+
+    if (columnIndex !== -1) {
+      [x, y] = [columnIndex, rowIndex];
+    }
+  });
+
+  return {x, y};
+};
 
 export const stringToKeyboardPosition = (string) => {
   const transform = (c) => {
-    if(english.indexOf(c) != -1) {
-      return english.indexOf(c);
+    const engLocation = findCharPosition(c, english);
+
+    if(engLocation.x !== -1 && engLocation.y !== -1) {
+      return Object.assign(engLocation, { z: 0 });
     } else {
-      return english.length + thai.indexOf(c);
+      const thaiLocation = findCharPosition(c, thai);
+      return Object.assign(thaiLocation, { z: 1 });
     }
-    return -1;
   };
 
   return string.split('').map(transform);
-};
-
-
-export const translateOffset = (series, comparingSeries) => {
-  const calcEngThaiRatio = (aSeries) => {
-    const maxEng = 92;
-    return aSeries.reduce((acc, e) => acc + (e < maxEng ? 1 : 0)) / aSeries.length
-  };
-
-  const isOnTheSameKeyboardLayout =
-    Math.abs(calcEngThaiRatio(series) - calcEngThaiRatio(comparingSeries)) < 0.1;
-
-  if(isOnTheSameKeyboardLayout) {
-    return series;
-  }
-  // else
-  const mean = series.reduce((acc, curr) => acc + curr) / series.length;
-  return series.map(e => e - mean);
 };
