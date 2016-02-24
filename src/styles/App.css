@@ -18,6 +18,11 @@
   width: 30px;
 }
 
+.alone {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 div.ct-chart.ct-octave {
   height: 500px;
   width: 800px;

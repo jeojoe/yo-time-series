@@ -7,7 +7,7 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist'
 
 import { stringToKeyboardPosition } from '../zup_timeseries/string_series'
-import { threeDimensionDTW } from '../zup_timeseries/util'
+import { threeDimensionDTW, extractSeriesDimension } from '../zup_timeseries/util'
 
 //let yeomanImage = require('../images/yeoman.png');
 
@@ -18,8 +18,59 @@ class DistanceMeter extends React.Component {
 
     const distance = threeDimensionDTW(input, comparing);
 
+    const options = {
+      width: '800px',
+      height: '500px',
+
+      showPoint: false,
+
+      lineSmooth: false,
+
+      axisX: {
+        showLabel: false,
+        type: Chartist.AutoScaleAxis,
+        onlyInteger: true
+      }
+    };
+
+    const type = 'Line';
+
+    const toXYObjectFormat = (elem, index) => { return { x: index, y: elem } };
+
+    const dataX = {
+      series: [
+        extractSeriesDimension(input, 'x').map(toXYObjectFormat),
+        extractSeriesDimension(comparing, 'x').map(toXYObjectFormat)
+      ]
+    };
+
+    const dataY = {
+      series: [
+        extractSeriesDimension(input, 'y').map(toXYObjectFormat),
+        extractSeriesDimension(comparing, 'y').map(toXYObjectFormat)
+      ]
+    };
+
+    const dataZ = {
+      series: [
+        extractSeriesDimension(input, 'z').map(toXYObjectFormat),
+        extractSeriesDimension(comparing, 'z').map(toXYObjectFormat)
+      ]
+    };
+
     return (
-      <div className="center">{distance.toFixed(2)}</div>
+      <div>
+        <div className="center alone">{distance.toFixed(2)}</div>
+
+        <ChartistGraph className={'ct-octave'} data={dataX} options={options} type={type} />
+        <div className="center">horizontal</div>
+
+        <ChartistGraph className={'ct-octave'} data={dataY} options={options} type={type} />
+        <div className="center">vertical
+
+        <ChartistGraph className={'ct-octave'} data={dataZ} options={options} type={type} />
+        <div className="center">layout</div>
+      </div>
     )
   }
 }
@@ -42,11 +93,6 @@ let AppComponent = React.createClass({
   render() {
     return (
       <div className="index">
-        <DistanceMeter
-          inputSeries={this.state.timeSeriesDataInput}
-          comparingSeries={this.state.timeSeriesDataExist}
-        />
-
         <SearchInput
           timeSeriesData={this.state.timeSeriesDataInput}
           updateTimeSeriesData={this.updateTimeSeriesData}
@@ -54,9 +100,14 @@ let AppComponent = React.createClass({
         />
 
         <SearchInput
-            timeSeriesData={this.state.timeSeriesDataInput}
-            updateTimeSeriesData={this.updateTimeSeriesData}
-            type='exist'
+          timeSeriesData={this.state.timeSeriesDataInput}
+          updateTimeSeriesData={this.updateTimeSeriesData}
+          type='exist'
+        />
+
+        <DistanceMeter
+          inputSeries={this.state.timeSeriesDataInput}
+          comparingSeries={this.state.timeSeriesDataExist}
         />
       </div>
     );

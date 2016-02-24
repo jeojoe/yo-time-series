@@ -30,9 +30,6 @@ export const threeDimensionDTW = (seriesA, seriesB) => {
     return 0;
   }
 
-  const extractSeriesDimension =
-    (series, dimension) => series.map(e => e[dimension]);
-
   const dimensions = ['x', 'y', 'z'];
 
   return dimensions.reduce((acc, dimension) => {
@@ -41,3 +38,6 @@ export const threeDimensionDTW = (seriesA, seriesB) => {
     return acc + DTW(oneDimensionSeriesA, oneDimensionSeriesB);
   }, 0);
 };
+
+export const extractSeriesDimension =
+  (series, dimension) => series.map(e => e[dimension]);
