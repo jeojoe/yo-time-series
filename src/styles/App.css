@@ -1,4 +1,8 @@
 /* Base Application Styles */
+.index {
+  margin-top: 50px;
+}
+
 .search-box {
   width: 335px;
   /*height: 30px;*/
@@ -14,7 +18,7 @@
 
 .center {
   display: block;
-  margin: 0 auto;
+  margin: auto;
   width: 30px;
 }
 
@@ -23,10 +27,18 @@
   margin-bottom: 10px;
 }
 
+.graph-wrapper {
+  width: 1225px;
+}
+
 div.ct-chart.ct-octave {
-  height: 500px;
-  width: 800px;
-  margin: 50px auto 5px
+  height: 250px;
+  width: 400px;
+  margin: 50px auto 5px;
+}
+
+div.inline-div {
+  display: inline-block;
 }
 
 .ct-series-b .ct-line {

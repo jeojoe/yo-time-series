@@ -19,8 +19,8 @@ class DistanceMeter extends React.Component {
     const distance = threeDimensionDTW(input, comparing);
 
     const options = {
-      width: '800px',
-      height: '500px',
+      width: '400px',
+      height: '250px',
 
       showPoint: false,
 
@@ -62,14 +62,22 @@ class DistanceMeter extends React.Component {
       <div>
         <div className="center alone">{distance.toFixed(2)}</div>
 
-        <ChartistGraph className={'ct-octave'} data={dataX} options={options} type={type} />
-        <div className="center">horizontal</div>
+        <div className="center graph-wrapper">
+          <div className="inline-div">
+            <ChartistGraph className={'ct-octave'} data={dataX} options={options} type={type} />
+            <div className="center">horizontal</div>
+          </div>
 
-        <ChartistGraph className={'ct-octave'} data={dataY} options={options} type={type} />
-        <div className="center">vertical</div>
+          <div className="inline-div">
+            <ChartistGraph className={'ct-octave'} data={dataY} options={options} type={type} />
+            <div className="center">vertical</div>
+          </div>
 
-        <ChartistGraph className={'ct-octave'} data={dataZ} options={options} type={type} />
-        <div className="center">layout</div>
+          <div className="inline-div">
+            <ChartistGraph className={'ct-octave'} data={dataZ} options={options} type={type} />
+            <div className="center">layout</div>
+          </div>
+        </div>
       </div>
     )
   }
