@@ -6,30 +6,13 @@ import React from 'react';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist'
 
-import { stringToKeyboardPosition } from '../zup_timeseries/string_series'
+import { stringToKeyboardPosition, translateOffset } from '../zup_timeseries/string_series'
 import { DTW } from '../zup_timeseries/util'
 
 //let yeomanImage = require('../images/yeoman.png');
 
 class Graph extends React.Component {
   render() {
-
-    const translateOffset = (series, comparingSeries) => {
-      const calcEngThaiRatio = (aSeries) => {
-        const maxEng = 92;
-        return aSeries.reduce((acc, e) => acc + (e < maxEng ? 1 : 0)) / aSeries.length
-      };
-
-      const isOnTheSameKeyboardLayout =
-        Math.abs(calcEngThaiRatio(series) - calcEngThaiRatio(comparingSeries)) < 0.1;
-
-      if(isOnTheSameKeyboardLayout) {
-        return series;
-      }
-      // else
-      const mean = series.reduce((acc, curr) => acc + curr) / series.length;
-      return series.map(e => e - mean);
-    };
 
     const offsetData = translateOffset(this.props.data, this.props.data2);
     const offsetData2 = translateOffset(this.props.data2, this.props.data);
